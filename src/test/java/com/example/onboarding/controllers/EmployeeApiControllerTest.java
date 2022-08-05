@@ -1,35 +1,36 @@
 package com.example.onboarding.controllers;
 
+import com.example.onboarding.OnboardingApplication;
 import com.example.onboarding.dto.EmployeeDto;
 import com.example.onboarding.entities.Company;
-import com.example.onboarding.entities.Employee;
-import com.example.onboarding.repositories.EmployeeRepository;
-import com.example.onboarding.services.EmployeeService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
+@SpringBootTest(classes = {OnboardingApplication.class})
+@AutoConfigureMockMvc
 public class EmployeeApiControllerTest {
 
-    @InjectMocks
-    private EmployeeService employeeService;
+    @Autowired
+    private MockMvc mockMvc;
 
-    @InjectMocks
-    private EmployeeService employeeServiceSpy;
-
-    @Mock
-    private EmployeeRepository employeeRepository;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     public void createEmployeeTest() throws Exception {
-        Employee employeeTest = new Employee();
         EmployeeDto employeeDto = new EmployeeDto();
         Company company = new Company();
 
@@ -41,10 +42,38 @@ public class EmployeeApiControllerTest {
         employeeDto.setTaxPayerId(1);
         employeeDto.setCompany(company);
 
-        Employee employeeResponse = employeeService.createEmployee(employeeDto);
+        mockMvc.perform(post("/employees/employee")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(employeeDto)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn();
+    }
 
-        System.out.println("Awit: " + employeeResponse);
+    @Test
+    public void getEmployeeByTaxPayerId() throws Exception {
+        EmployeeDto employeeDto = new EmployeeDto();
+        Company company = new Company();
 
-        assertNotNull(employeeResponse);
+        company.setCompanyName("Finstro Australia");
+        company.setCountry("Australia");
+
+        employeeDto.setFirstName("Anil");
+        employeeDto.setLastName("Palat");
+        employeeDto.setTaxPayerId(2);
+        employeeDto.setCompany(company);
+
+        mockMvc.perform(post("/employees/employee")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(employeeDto)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn();
+
+        mockMvc.perform(get("/employees/employee/{taxPayerId}", employeeDto.getTaxPayerId())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn();
     }
 }

@@ -2,8 +2,6 @@ package com.example.onboarding.controllers;
 
 import com.example.onboarding.OnboardingApplication;
 import com.example.onboarding.dto.CompanyDto;
-import com.example.onboarding.entities.Company;
-import com.example.onboarding.repositories.CompanyRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -13,10 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
-import javax.transaction.Transactional;
-
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -32,24 +28,14 @@ public class CompanyApiControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
-    private CompanyRepository companyRepository;
-
-//    @Test
-//    public void createCompanyTest() throws Exception {
-//        CompanyD
-//    }
-
     @Test
-//    @Transactional
     public void createCompanyTest() throws Exception {
         CompanyDto companyDto = new CompanyDto();
 
         companyDto.setCompanyName("Finstro Philippines");
         companyDto.setCountry("Philippines");
 
-        MvcResult result = mockMvc
-                .perform(post("/companies/company")
+        mockMvc.perform(post("/companies/company")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(companyDto)))
                 .andExpect(status().isOk())
@@ -61,19 +47,20 @@ public class CompanyApiControllerTest {
     public void getCompanyByCompanyNameAndCountryTest() throws Exception {
         CompanyDto companyDto = new CompanyDto();
 
-        companyDto.setCompanyName("Finstro Philippines");
-        companyDto.setCountry("Philippines");
+        companyDto.setCompanyName("Finstro Australia");
+        companyDto.setCountry("Australia");
 
-        MvcResult result = mockMvc
-                .perform(post("/companies/company")
+        mockMvc.perform(post("/companies/company")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(companyDto)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andReturn();
 
-        System.out.println("This is the result: " + objectMapper.readValue(result.getResponse().getContentAsString(), Company.class));
-
-//        MvcResult mvcResult = mockMvc
+        mockMvc.perform(get("/companies/{companyName}/{country}", companyDto.getCompanyName(), companyDto.getCountry())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn();
     }
 }
