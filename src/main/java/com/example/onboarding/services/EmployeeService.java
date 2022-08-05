@@ -6,9 +6,6 @@ import com.example.onboarding.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Service
 public class EmployeeService {
 
@@ -30,12 +27,7 @@ public class EmployeeService {
         return employeeRepository.findByTaxPayerId(taxPayerId);
     }
 
-    public List<Employee> getEmployeesByCompany(String companyName) {
-//        List<Employee> employees = new ArrayList<>();
-
-//        return employeeRepository.findAllByCompanyName(companyName);
-
-//        employeeRepository.findAll().forEach(employees::add);
-        return null;
+    public Employee getEmployeeByCompany(String companyName) {
+        return employeeRepository.findByCompanyCompanyName(companyName);
     }
 }

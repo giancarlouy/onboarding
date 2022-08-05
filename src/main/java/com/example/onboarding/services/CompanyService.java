@@ -24,5 +24,4 @@ public class CompanyService {
     public Company getCompanyByCompanyNameAndCountry(String companyName, String country) {
         return companyRepository.findByCompanyNameAndCountry(companyName, country);
     }
-
 }

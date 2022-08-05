@@ -76,4 +76,32 @@ public class EmployeeApiControllerTest {
                 .andDo(print())
                 .andReturn();
     }
+
+    @Test
+    public void getEmployeeByCompanyName() throws Exception {
+        EmployeeDto employeeDto = new EmployeeDto();
+        Company company = new Company();
+
+        company.setCompanyName("Finstro United States");
+        company.setCountry("Finstro United States");
+
+        employeeDto.setFirstName("Alyssa");
+        employeeDto.setLastName("Romero");
+        employeeDto.setTaxPayerId(3);
+        employeeDto.setCompany(company);
+
+        mockMvc.perform(post("/employees/employee")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(employeeDto)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn();
+
+        mockMvc.perform(get("/employees/employee")
+                        .content(objectMapper.writeValueAsString(employeeDto))
+                        .param("companyName", "Finstro United States"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andReturn();
+    }
 }

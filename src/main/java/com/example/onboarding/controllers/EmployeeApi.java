@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 @RequestMapping(value = "/employees")
 public interface EmployeeApi {
@@ -22,7 +21,7 @@ public interface EmployeeApi {
     @ResponseBody
     ResponseEntity<Employee> getEmployeeByTaxPayerId(@PathVariable int taxPayerId);
 
-    @RequestMapping(value = "/{companyName}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/employee", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    ResponseEntity<List<Employee>> getEmployeesByCompanyName(@PathVariable String companyName);
+    ResponseEntity<Employee> getEmployeeByCompanyName(@RequestParam(value = "companyName") String companyName);
 }

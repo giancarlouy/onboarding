@@ -28,5 +28,4 @@ public class CompanyApiController implements CompanyApi {
         Company company = companyService.getCompanyByCompanyNameAndCountry(companyName, country);
         return ResponseEntity.ok().body(company);
     }
-
 }

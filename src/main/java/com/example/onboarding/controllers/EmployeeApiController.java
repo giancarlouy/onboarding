@@ -9,8 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Validated
@@ -32,8 +31,8 @@ public class EmployeeApiController implements EmployeeApi {
     }
 
     @Override
-    public ResponseEntity<List<Employee>> getEmployeesByCompanyName(@PathVariable String companyName) {
-        List<Employee> employees = employeeService.getEmployeesByCompany(companyName);
-        return ResponseEntity.ok().body(employees);
+    public ResponseEntity<Employee> getEmployeeByCompanyName(@RequestParam(value = "companyName") String companyName) {
+        Employee employee = employeeService.getEmployeeByCompany(companyName);
+        return ResponseEntity.ok().body(employee);
     }
 }

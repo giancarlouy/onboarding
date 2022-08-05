@@ -29,7 +29,7 @@ public class Employee {
     private int taxPayerId;
 
     @ManyToOne(targetEntity = Company.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "company_id", referencedColumnName = "company_id")
+    @JoinColumn(name = "company_name", referencedColumnName = "company_name")
     private Company company;
 
     public int getEmployeeId() {

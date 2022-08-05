@@ -18,5 +18,4 @@ public interface CompanyApi {
 
     @RequestMapping(value = "/{companyName}/{country}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<Company> getCompanyByCompanyNameAndCountry(@PathVariable String companyName, @PathVariable String country);
-
 }
