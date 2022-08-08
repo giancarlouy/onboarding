@@ -27,7 +27,7 @@ These are the following endpoints that reside within the application:
 | CompanyAPI  | Find a company by company name and country | `/companies/{copmanyName}/{country}` | `GET`               |
 | EmployeeAPI | Create an employee                         | `/employees/employee`                | `POST`              |
 | EmployeeAPI | Find an employee by tax payer id           | `/employees/employee/{taxPayerId}`   | `GET`               |
-| EmployeeAPI | Find an employee by company name           | `employees/employee`                 | `GET`               |
+| EmployeeAPI | Find an employee by company name           | `/employees/employee`                | `GET`               |
 
 <br />
 
