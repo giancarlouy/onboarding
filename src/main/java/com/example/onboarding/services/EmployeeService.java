@@ -27,7 +27,7 @@ public class EmployeeService {
         return employeeRepository.findByTaxPayerId(taxPayerId);
     }
 
-    public Employee getEmployeeByCompany(String companyName) {
+    public Employee getEmployeeByCompanyName(String companyName) {
         return employeeRepository.findByCompanyCompanyName(companyName);
     }
 }

@@ -1,43 +1,31 @@
 package com.example.onboarding.services;
 
+import com.example.onboarding.OnboardingApplication;
 import com.example.onboarding.dto.EmployeeDto;
 import com.example.onboarding.entities.Company;
 import com.example.onboarding.entities.Employee;
 import com.example.onboarding.repositories.EmployeeRepository;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.modules.junit4.PowerMockRunner;
-import org.powermock.reflect.Whitebox;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-//@RunWith(PowerMockRunner.class)
-@ExtendWith(MockitoExtension.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = OnboardingApplication.class)
 public class EmployeeServiceTest {
 
-    @InjectMocks
+    @Autowired
     private EmployeeService employeeService;
 
-    @InjectMocks
-    private EmployeeService employeeServiceSpy;
-
-    @Mock
+    @Autowired
     private EmployeeRepository employeeRepository;
 
-    @BeforeEach
-    public void setup() {
-        employeeServiceSpy = PowerMockito.spy(employeeService);
-    }
-
     @Test
-    public void createEmployeeTest() throws Exception {
+    public void createEmployeeTest() {
         EmployeeDto employeeDto = new EmployeeDto();
         Company company = new Company();
 
@@ -49,26 +37,66 @@ public class EmployeeServiceTest {
         employeeDto.setTaxPayerId(1);
         employeeDto.setCompany(company);
 
-        System.out.println("Employee Response: " + employeeService.createEmployee(employeeDto));
+        Employee employee = employeeService.createEmployee(employeeDto);
 
-//        System.out.println("Employee DTO: " + employeeDto);
-//
-//        System.out.println("putingbox: " + Whitebox.invokeMethod(employeeServiceSpy, "createEmployee", employeeDto));
-//        Employee employee = Whitebox.invokeMethod(employeeServiceSpy, "createEmployee", employeeDto);
-//
-//        System.out.println("Awit: " + employee);
+        assertNotNull(employee);
 
-//        assertNotNull(employee);
+        assertEquals(employee.getFirstName(), employeeDto.getFirstName());
+        assertEquals(employee.getLastName(), employeeDto.getLastName());
+        assertEquals(employee.getTaxPayerId(), employeeDto.getTaxPayerId());
+        assertEquals(employee.getCompany().getCompanyName(), employeeDto.getCompany().getCompanyName());
+        assertEquals(employee.getCompany().getCountry(), employeeDto.getCompany().getCountry());
     }
 
     @Test
-    public void getEmployeeByTaxPayerId() throws Exception {
-        int taxPayerId = 1;
+    public void getEmployeeByTaxPayerId() {
+        Employee employee = new Employee();
+        Company company = new Company();
 
-        Employee expected = new Employee();
+        company.setCompanyName("Finstro Australia");
+        company.setCountry("Australia");
 
-        expected.setFirstName("Gian");
-        expected.setLastName("Uy");
-//        expected.set
+        employee.setFirstName("Anil");
+        employee.setLastName("Palat");
+        employee.setTaxPayerId(2);
+        employee.setCompany(company);
+
+        employeeRepository.save(employee);
+
+        Employee expectedEmployee = employeeService.getEmployeeByTaxPayerId(2);
+
+        assertNotNull(expectedEmployee);
+
+        assertEquals(expectedEmployee.getFirstName(), employee.getFirstName());
+        assertEquals(expectedEmployee.getLastName(), employee.getLastName());
+        assertEquals(expectedEmployee.getTaxPayerId(), employee.getTaxPayerId());
+        assertEquals(expectedEmployee.getCompany().getCompanyName(), employee.getCompany().getCompanyName());
+        assertEquals(expectedEmployee.getCompany().getCountry(), employee.getCompany().getCountry());
+    }
+
+    @Test
+    public void getEmployeeByCompanyName() {
+        Employee employee = new Employee();
+        Company company = new Company();
+
+        company.setCompanyName("Finstro United States");
+        company.setCountry("United States");
+
+        employee.setFirstName("Alyssa");
+        employee.setLastName("Romero");
+        employee.setTaxPayerId(3);
+        employee.setCompany(company);
+
+        employeeRepository.save(employee);
+
+        Employee expectedEmployee = employeeService.getEmployeeByCompanyName(company.getCompanyName());
+
+        assertNotNull(expectedEmployee);
+
+        assertEquals(expectedEmployee.getFirstName(), employee.getFirstName());
+        assertEquals(expectedEmployee.getLastName(), employee.getLastName());
+        assertEquals(expectedEmployee.getTaxPayerId(), employee.getTaxPayerId());
+        assertEquals(expectedEmployee.getCompany().getCompanyName(), employee.getCompany().getCompanyName());
+        assertEquals(expectedEmployee.getCompany().getCountry(), employee.getCompany().getCountry());
     }
 }

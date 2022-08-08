@@ -32,7 +32,7 @@ public class EmployeeApiController implements EmployeeApi {
 
     @Override
     public ResponseEntity<Employee> getEmployeeByCompanyName(@RequestParam(value = "companyName") String companyName) {
-        Employee employee = employeeService.getEmployeeByCompany(companyName);
+        Employee employee = employeeService.getEmployeeByCompanyName(companyName);
         return ResponseEntity.ok().body(employee);
     }
 }

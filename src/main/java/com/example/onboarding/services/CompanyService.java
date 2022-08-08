@@ -4,9 +4,11 @@ import com.example.onboarding.dto.CompanyDto;
 import com.example.onboarding.entities.Company;
 import com.example.onboarding.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile({"default", "australia", "united-states", "philippines"})
 public class CompanyService {
 
     @Autowired
