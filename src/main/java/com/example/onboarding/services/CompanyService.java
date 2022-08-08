@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
-@Profile({"default", "australia", "united-states", "philippines"})
+@Profile({"default", "australia", "unitedstates", "philippines"})
 public class CompanyService {
 
     @Autowired
