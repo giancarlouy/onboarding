@@ -52,7 +52,7 @@ Sample payloads for each endpoint:
 
 <br />
 
-`POST employees/employee`
+`POST /employees/employee`
 ```
 {
     "firstName": "Gian",
