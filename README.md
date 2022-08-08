@@ -19,7 +19,7 @@ In order to configure this application properly, you must create the following s
 
 <br />
 
-These are the following endpoints within that reside within the application:
+These are the following that reside within the application:
 
 | API         | Description                                | Endpoint                             | HTTP Request Method |
 |-------------|--------------------------------------------|--------------------------------------|---------------------|
