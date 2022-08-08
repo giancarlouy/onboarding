@@ -4,7 +4,7 @@ This is a simple Spring boot application developed as part of [TRNSCT-130](https
 
 <br />
 
-In order to configure this application properly, you must create the following schemas created in your local:
+In order to configure this application properly, you must create the following schemas created in your local database:
 
 | Schema       | URL                                      |
 | ------------ | ---------------------------------------- |
@@ -15,7 +15,7 @@ In order to configure this application properly, you must create the following s
 
 <br />
 
-> Note: These configurations can be found under `src` > `main` > `resources` > `application-*.properties files`
+> Note: These configurations can be found under `src` > `main` > `resources` > `application-*.properties` files
 
 <br />
 
