@@ -84,5 +84,5 @@ Sample payloads for each endpoint:
 
 <br />
 
-> To run the application, you must first supply a profile within the VM options of IntelliJ: `-Dspring.profiles.active=${country}`.
+> To run the application, you must first supply a password and profile within the VM options of IntelliJ: `-Dspring.datasource.password=${password}` and `-Dspring.profiles.active=${country}`.
 > Afterwards, navigate your way to the `OnboardingApplication.java` class and hit run.
