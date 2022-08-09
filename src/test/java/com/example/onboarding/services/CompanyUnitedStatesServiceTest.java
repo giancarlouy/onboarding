@@ -12,8 +12,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @SpringBootTest
-@ActiveProfiles("default")
-public class CompanyServiceTest {
+@ActiveProfiles("unitedstates")
+public class CompanyUnitedStatesServiceTest {
 
     @Autowired
     private CompanyService companyService;
@@ -26,7 +26,7 @@ public class CompanyServiceTest {
         CompanyDto companyDto = new CompanyDto();
 
         companyDto.setCompanyName("Finstro");
-        companyDto.setCountry("Local");
+        companyDto.setCountry("United States");
 
         Company company = companyService.createCompany(companyDto);
 
@@ -41,7 +41,7 @@ public class CompanyServiceTest {
         Company company = new Company();
 
         company.setCompanyName("Google");
-        company.setCountry("Local");
+        company.setCountry("United States");
 
         companyRepository.save(company);
 
