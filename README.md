@@ -11,7 +11,6 @@ In order to configure this application properly, you must create the following s
 | onboarding   | jdbc:mysql://localhost:3306/onboarding   |
 | australia    | jdbc:mysql://localhost:3306/australia    |
 | unitedstates | jdbc:mysql://localhost:3306/unitedstates |
-| philippines  | jdbc:mysql://localhost:3306/philippines  |
 
 <br />
 
@@ -85,4 +84,5 @@ Sample payloads for each endpoint:
 
 <br />
 
-> To run the application, simply find the `OnboardingApplication.java` class and hit run
+> To run the application, you must first supply a profile within the VM options of IntelliJ: `-Dspring.profiles.active=${country}`.
+> Afterwards, navigate your way to the `OnboardingApplication.java` class and hit run.
