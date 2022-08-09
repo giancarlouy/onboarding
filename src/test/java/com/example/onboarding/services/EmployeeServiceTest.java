@@ -1,21 +1,19 @@
 package com.example.onboarding.services;
 
-import com.example.onboarding.OnboardingApplication;
 import com.example.onboarding.dto.EmployeeDto;
 import com.example.onboarding.entities.Company;
 import com.example.onboarding.entities.Employee;
 import com.example.onboarding.repositories.EmployeeRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = OnboardingApplication.class)
+@SpringBootTest
+@ActiveProfiles("default")
 public class EmployeeServiceTest {
 
     @Autowired
