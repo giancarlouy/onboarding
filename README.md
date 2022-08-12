@@ -68,18 +68,14 @@ Sample payloads for each endpoint:
 
 `GET /employees/employee/{taxPayerId}`
 ```
-{
-    /employees/employee/1
-}
+/employees/employee/1
 ```
 
 <br />
 
 `GET /employees/employee`
 ```
-{
-    /employees/employee?companyName=Finstro
-}
+/employees/employee?companyName=Finstro
 ```
 
 <br />
